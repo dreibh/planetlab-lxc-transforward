@@ -1,0 +1,14 @@
+import socket
+
+host = '128.112.95.146'                 
+port = 13412
+s = socket.socket()
+print s.bind((host,port))
+s.listen(10)
+conn, addr = s.accept()
+print 'Connected by', addr
+while 1:
+    data = conn.recv(1024)
+    if not data: break
+    conn.send(data)
+conn.close()
