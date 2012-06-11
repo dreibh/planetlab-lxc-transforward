@@ -3,12 +3,11 @@
 %define taglevel 1
 
 ### legacy from locally-built kernels, used to define these
-# kernel_release, kernel_version and kernel_arch are expected to be set by the build to e.g.
-# kernel_release : 24.onelab  (24 is then the planetlab taglevel)
-# kernel_version : 2.6.27.57 | 2.6.32  (57 in the 27 case is the patch level)
+# kernel_release : 1.fc16  (24 is then the planetlab taglevel)
+# kernel_version : 3.3.7
 # kernel_arch :    i686 | x86_64
 
-# with the stock kernel
+# compute this with "rpm -q --qf .. kernel-devel" when with the stock kernel
 # this line below
 #%define module_release %( rpm -q --qf "%{version}" kernel-headers )
 # causes recursive macro definition no matter how much you quote
