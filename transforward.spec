@@ -29,6 +29,7 @@ Vendor: PlanetLab
 Packager: PlanetLab Central <support@planet-lab.org>
 Distribution: PlanetLab %{plrelease}
 URL: %{SCMURL}
+Requires: kernel = %{kernel_version}-%{kernel_release}
 
 Summary: Kernel module that transparently forwards ports between containers
 Name: %{name}
