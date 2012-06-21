@@ -1,6 +1,9 @@
+#!/usr/bin/python
+
 import socket
 
 host = '128.112.95.146'                 
+#host = '0.0.0.0'
 port = 13412
 s = socket.socket()
 print s.bind((host,port))
