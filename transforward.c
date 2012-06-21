@@ -96,7 +96,7 @@ static int __init transforward_init(void)
                   return -1;
           }
           //printk("Planted jprobe at %p, handler addr %p\n",
-                 net_probe.kp.addr, net_probe.entry);
+                 //net_probe.kp.addr, net_probe.entry);
 
         return ret;
 }
