@@ -41,13 +41,13 @@ MODULE_LICENSE("GPL");
 MODULE_VERSION(VERSION_STR);
 
 static int address_in_root(unsigned int haddr) {
-    printk(KERN_CRIT "In address_in_root: %d",haddr);
+    //printk(KERN_CRIT "In address_in_root: %u",haddr);
     struct net_device *dev;
     struct net *net = &init_net;
 
     for_each_netdev(net, dev) {
             unsigned int ifhaddr = inet_select_addr(dev,0,0);
-            printk(KERN_CRIT "Checking address: %d",ifhaddr);
+            //printk(KERN_CRIT "Checking address: %u",ifhaddr);
             if (haddr == ifhaddr) return 1;
     }
     return 0;
@@ -55,11 +55,11 @@ static int address_in_root(unsigned int haddr) {
 
 static int inet_bind_entry(struct socket *sock, struct sockaddr *uaddr, int addr_len) {
     struct sockaddr_in *addr = (struct sockaddr_in *)uaddr;
-    unsigned int snum = ntohs(addr->sin_addr.s_addr);
+    unsigned int snum = addr->sin_addr.s_addr;
     if (address_in_root(snum)) {
         put_net(sock_net(sock->sk));
         sock_net_set(sock->sk, get_net(&init_net)); 
-        printk(KERN_CRIT "Rewiring netns");
+        //printk(KERN_CRIT "Rewiring netns");
     }
     jprobe_return();
     return 0;
@@ -92,10 +92,10 @@ static int __init transforward_init(void)
           }
   
           if ((ret = register_jprobe(&net_probe)) <0) {
-                  printk("register_jprobe failed, returned %d\n", ret);
+                  printk("register_jprobe failed, returned %u\n", ret);
                   return -1;
           }
-          printk("Planted jprobe at %p, handler addr %p\n",
+          //printk("Planted jprobe at %p, handler addr %p\n",
                  net_probe.kp.addr, net_probe.entry);
 
         return ret;
