@@ -59,7 +59,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 /lib/modules/%{kernel_id}
-/etc/modules-load.d/procprotect.conf
+/etc/modules-load.d/transforward.conf
 
 %post
 
