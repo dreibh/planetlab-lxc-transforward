@@ -62,6 +62,7 @@ rm -rf $RPM_BUILD_ROOT
 /etc/modules-load.d/transforward.conf
 
 %post
+/sbin/depmod -a
 
 %postun
 
