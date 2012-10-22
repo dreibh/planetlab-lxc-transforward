@@ -65,6 +65,13 @@ static int inet_bind_entry(struct socket *sock, struct sockaddr *uaddr, int addr
     return 0;
 }
 
+static struct file *do_last_probe(struct nameidata *nd, struct path *path,
+                         const struct open_flags *op, const char *pathname) {
+    
+    
+    jprobe_return();
+
+}
 
 static struct jprobe net_probe = {
 	.entry = (kprobe_opcode_t *) inet_bind_entry

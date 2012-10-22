@@ -1,6 +1,6 @@
 %define name transforward
 %define version 0.1
-%define taglevel 2
+%define taglevel 3
 
 ### legacy from locally-built kernels, used to define these
 # kernel_release : 1.fc16  (24 is then the planetlab taglevel)
