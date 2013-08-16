@@ -5,7 +5,7 @@ ARCH=$(shell uname -m)
 DIST=fc18 # Is there an easy way of fetching this automatically, short of mapping /etc/redhat-release
 
 ifeq ($(wildcard /lib/modules/$(KVER)/build),) 
-	KVER=3.10.6-100.$(DIST).$(KVER)
+	KVER=3.10.6-100.$(DIST).$(ARCH)
 endif
 
 all:
