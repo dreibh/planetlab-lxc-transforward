@@ -41,7 +41,6 @@ MODULE_LICENSE("GPL");
 MODULE_VERSION(VERSION_STR);
 
 static int address_in_root(unsigned int haddr) {
-    //printk(KERN_CRIT "In address_in_root: %u",haddr);
     struct net_device *dev;
     struct net *net = &init_net;
 
@@ -56,6 +55,7 @@ static int address_in_root(unsigned int haddr) {
 static int inet_bind_entry(struct socket *sock, struct sockaddr *uaddr, int addr_len) {
     struct sockaddr_in *addr = (struct sockaddr_in *)uaddr;
     unsigned int snum = addr->sin_addr.s_addr;
+	//printk(KERN_CRIT "Checking address %d",snum);
     if (address_in_root(snum)) {
         put_net(sock_net(sock->sk));
         sock_net_set(sock->sk, get_net(&init_net)); 
