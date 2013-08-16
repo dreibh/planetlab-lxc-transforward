@@ -15,3 +15,8 @@ all:
 
 clean:
 	make -C /lib/modules/$(KVER)/build M=$(PWD) clean
+
+install:
+	install -D -m 755 transforward.ko /lib/modules/$(KVER)/net/transforward/transforward.ko
+	mkdir -p /etc/modules-load.d
+	install -m 644 transforward.conf /etc/modules-load.d/transforward.conf
