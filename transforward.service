@@ -1,0 +1,11 @@
+[Unit]
+Description=transforward module
+After=syslog.target network.target
+
+[Service]
+Type=forking
+ExecStart=/sbin/modprobe transforward
+ControlGroup=cpu:/
+
+[Install]
+WantedBy=multi-user.target
