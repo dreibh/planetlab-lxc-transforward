@@ -18,4 +18,7 @@ clean:
 
 install:
 	install -D -m 755 transforward.ko /lib/modules/$(KVER)/net/transforward/transforward.ko
+	mkdir -p /etc/modules-load.d
+	install -m 644 transforward.conf /etc/modules-load.d/transforward.conf
 	install -m 644 transforward.service /usr/lib/systemd/system/transforward.service
+	install -m 755 transforward.init /usr/sbin/transforward.init

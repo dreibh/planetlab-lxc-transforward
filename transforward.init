@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ ! -f /proc/transforward ]; then 
+	echo "Transforward kernel module not loaded"
+else
+	echo 1 > /proc/transforward
+fi
+
