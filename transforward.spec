@@ -53,6 +53,9 @@ make -C %{kernelpath} V=1 M=$(pwd) modules
 install -D -m 755 transforward.ko $RPM_BUILD_ROOT/lib/modules/%{kernel_id}/net/transforward/transforward.ko
 mkdir -p $RPM_BUILD_ROOT/etc/modules-load.d
 install -m 644 transforward.conf $RPM_BUILD_ROOT/etc/modules-load.d/transforward.conf
+mkdir -p $RPM_BUILD_ROOT/usr/lib/systemd/system
+install -m 644 transforward.service $RPM_BUILD_ROOT/usr/lib/systemd/system/transforward.service
+install -m 755 transforward.init $RPM_BUILD_ROOT/usr/sbin/transforward.init
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -63,6 +66,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/depmod -a
+/bin/systemctl enable transforward.service
 
 %postun
 
