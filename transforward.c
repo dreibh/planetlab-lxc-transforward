@@ -40,6 +40,8 @@ MODULE_DESCRIPTION("Transparent port forwarding for LXC.");
 MODULE_LICENSE("GPL");
 MODULE_VERSION(VERSION_STR);
 
+struct proc_dir_entry *proc_entry;
+
 static int address_in_root(unsigned int haddr) {
     struct net_device *dev;
     struct net *net = &init_net;
@@ -84,9 +86,9 @@ static void __exit transforward_exit(void)
 	printk("Transforward: Stopped transforward.\n");
 }
 
+int once_only=0;
 
-
-static int __init transforward_init(void)
+static int init_probes(void)
 {
     int ret = 0;
 	printk("Transforward: starting transforward version %s.\n",
@@ -102,10 +104,33 @@ static int __init transforward_init(void)
                   printk("register_jprobe failed, returned %u\n", ret);
                   return -1;
           }
-          //printk("Planted jprobe at %p, handler addr %p\n",
-                 //net_probe.kp.addr, net_probe.entry);
 
         return ret;
+}
+
+int procfile_write(struct file *file, const char *buffer, unsigned long count, void *data) {		
+	if (!once_only) {
+		once_only=1;
+		if (init_probes()==-1)
+			printk(KERN_CRIT "Could not install procprotect probes. Reload module to retry.");
+		else 
+			printk(KERN_CRIT "Activated transforward module");
+	}
+    return count;
+}
+static const struct file_operations transforward_fops = {
+    .owner = THIS_MODULE,
+    .write = procfile_write
+};
+
+static int __init transforward_init(void)
+{
+    int ret = 0;
+	printk("Transforward: starting transforward version %s.\n",
+	       VERSION_STR);
+
+    proc_entry = proc_create("transforward", 0644, NULL, &transforward_fops);
+	return ret;
 }
 
 module_init(transforward_init);
