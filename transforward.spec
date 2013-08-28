@@ -1,6 +1,6 @@
 %define name transforward
 %define version 0.1
-%define taglevel 3
+%define taglevel 4
 
 ### legacy from locally-built kernels, used to define these
 # kernel_release : 1.fc16  (24 is then the planetlab taglevel)
@@ -71,6 +71,10 @@ rm -rf $RPM_BUILD_ROOT
 %postun
 
 %changelog
+* Wed Aug 28 2013 Sapan Bhatia <sapanb@cs.princeton.edu> - transforward-0.1-4
+- * Bug fixes, which should lead to increased stability
+- * Install via make and make install
+
 * Mon Jul 09 2012 Thierry Parmentelat <thierry.parmentelat@sophia.inria.fr> - transforward-0.1-2
 - load module at boot-time
 - various tweaks, remove debugging statements
