@@ -69,7 +69,7 @@ rm -rf $RPM_BUILD_ROOT
 /usr/sbin/transforward.init
 
 %post
-/sbin/depmod -a
+/sbin/depmod -a %{kernel_id}
 /bin/systemctl enable transforward.service
 
 %postun
