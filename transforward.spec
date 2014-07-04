@@ -51,7 +51,7 @@ Kernel module that transparently forwards ports between containers
 %setup -q
 
 %build
-make -C %{kernelpath} V=1 M=$(pwd) modules
+make -C %{kernelpath} V=1 M=$(pwd) KVER=%{kernel_id} modules
 
 %install
 install -D -m 755 transforward.ko $RPM_BUILD_ROOT/lib/modules/%{kernel_id}/net/transforward/transforward.ko
