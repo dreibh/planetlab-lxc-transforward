@@ -1,6 +1,6 @@
 %define name transforward
 %define version 0.1
-%define taglevel 6
+%define taglevel 7
 
 ### legacy from locally-built kernels, used to define these
 # kernel_release : 1.fc16  (24 is then the planetlab taglevel)
@@ -75,6 +75,9 @@ rm -rf $RPM_BUILD_ROOT
 %postun
 
 %changelog
+* Wed Jul 16 2014 Thierry Parmentelat <thierry.parmentelat@sophia.inria.fr> - transforward-0.1-7
+- tweak for building against a home-made kernel
+
 * Mon Apr 28 2014 Thierry Parmentelat <thierry.parmentelat@sophia.inria.fr> - transforward-0.1-6
 - change to specfile so depmod gets called with the right kernel version
 
