@@ -43,6 +43,7 @@ License: GPL
 Group: System Environment/Kernel
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Source0: transforward-%{version}.tar.gz
+Requires: kernel = %{kernel_version}-%{kernel_release}
 
 %description
 Kernel module that transparently forwards ports between containers
