@@ -67,13 +67,6 @@ static int inet_bind_entry(struct socket *sock, struct sockaddr *uaddr, int addr
     return 0;
 }
 
-static struct file *do_last_probe(struct nameidata *nd, struct path *path,
-                         const struct open_flags *op, const char *pathname) {
-    
-    
-    jprobe_return();
-
-}
 
 static struct jprobe net_probe = {
 	.entry = (kprobe_opcode_t *) inet_bind_entry
@@ -108,7 +101,7 @@ static int init_probes(void)
         return ret;
 }
 
-int procfile_write(struct file *file, const char *buffer, unsigned long count, void *data) {		
+ssize_t procfile_write(struct file *file, const char *buffer, size_t count, loff_t *data) {
 	if (!once_only) {
 		once_only=1;
 		if (init_probes()==-1)
