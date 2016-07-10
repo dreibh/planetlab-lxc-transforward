@@ -1,6 +1,6 @@
 %define name transforward
 %define version 0.1
-%define taglevel 9
+%define taglevel 10
 
 ### legacy from locally-built kernels, used to define these
 # kernel_release : 1.fc16  (24 is then the planetlab taglevel)
@@ -76,6 +76,9 @@ rm -rf $RPM_BUILD_ROOT
 %postun
 
 %changelog
+* Sun Jul 10 2016 Thierry Parmentelat <thierry.parmentelat@sophia.inria.fr> - transforward-0.1-10
+- fix to compile against linux 4.6 under f24
+
 * Fri Apr 03 2015 Thierry Parmentelat <thierry.parmentelat@sophia.inria.fr> - transforward-0.1-9
 - only cleaned up the systemd unit file to remove ControlGroup:
 
