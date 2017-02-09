@@ -12,7 +12,7 @@
 #include <linux/sysrq.h>
 #include <linux/timer.h>
 #include <linux/time.h>
-#include <linux/lglock.h>
+/*#include <linux/lglock.h>*/
 #include <linux/init.h>
 #include <linux/idr.h>
 #include <linux/namei.h>
