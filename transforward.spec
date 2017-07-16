@@ -1,6 +1,6 @@
 %define name transforward
 %define version 0.1
-%define taglevel 10
+%define taglevel 11
 
 ### legacy from locally-built kernels, used to define these
 # kernel_release : 1.fc16  (24 is then the planetlab taglevel)
@@ -76,6 +76,9 @@ rm -rf $RPM_BUILD_ROOT
 %postun
 
 %changelog
+* Sun Jul 16 2017 Thierry Parmentelat <thierry.parmentelat@sophia.inria.fr> - transforward-0.1-11
+- no glock.h in kernel 4.9
+
 * Sun Jul 10 2016 Thierry Parmentelat <thierry.parmentelat@sophia.inria.fr> - transforward-0.1-10
 - fix to compile against linux 4.6 under f24
 
