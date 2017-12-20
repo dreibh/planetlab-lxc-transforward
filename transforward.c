@@ -8,6 +8,7 @@
 #include <linux/reboot.h>
 #include <linux/delay.h>
 #include <linux/proc_fs.h>
+#include <linux/sched.h>
 #include <asm/uaccess.h>
 #include <linux/sysrq.h>
 #include <linux/timer.h>
