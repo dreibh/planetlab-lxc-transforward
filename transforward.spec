@@ -10,16 +10,18 @@
 # when no custom kernel is being built, kernel_version is defined but empty
 %define _with_planetlab_kernel %{?kernel_version:1}%{!?kernel_version:0}
 %if ! %{_with_planetlab_kernel}
-# compute this with "rpm -q --qf .. kernel-devel" when with the stock kernel
+
+# compute these with "rpm -q --qf .. kernel-devel" when with the stock kernel
 # this line below
-#%define module_release %( rpm -q --qf "%{version}" kernel-headers )
+#%define module_release %( rpm -q --qf "%{version}" kernel-devel )
 # causes recursive macro definition no matter how much you quote
+
 %define percent %
 %define braop \{
 %define bracl \}
-%define kernel_version %( rpm -q --qf %{percent}%{braop}version%{bracl} kernel-headers )
-%define kernel_release %( rpm -q --qf %{percent}%{braop}release%{bracl} kernel-headers )
-%define kernel_arch %( rpm -q --qf %{percent}%{braop}arch%{bracl} kernel-headers )
+%define kernel_version %( rpm -q --qf %{percent}%{braop}version%{bracl} kernel-devel )
+%define kernel_release %( rpm -q --qf %{percent}%{braop}release%{bracl} kernel-devel )
+%define kernel_arch %( rpm -q --qf %{percent}%{braop}arch%{bracl} kernel-devel )
 %endif
 
 # this is getting really a lot of stuff, could be made simpler probably
@@ -48,7 +50,7 @@ Requires: kernel = %{kernel_version}-%{kernel_release}
 %description
 Kernel module that transparently forwards ports between containers
 
-%prep 
+%prep
 %setup -q
 
 %build
@@ -104,4 +106,3 @@ rm -rf $RPM_BUILD_ROOT
 * Mon Jul 09 2012 Thierry Parmentelat <thierry.parmentelat@sophia.inria.fr> - transforward-0.1-2
 - load module at boot-time
 - various tweaks, remove debugging statements
-
