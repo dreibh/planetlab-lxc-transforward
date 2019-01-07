@@ -1,6 +1,6 @@
 %define name transforward
 %define version 0.1
-%define taglevel 11
+%define taglevel 12
 
 ### legacy from locally-built kernels, used to define these
 # kernel_release : 1.fc16  (24 is then the planetlab taglevel)
@@ -78,6 +78,11 @@ rm -rf $RPM_BUILD_ROOT
 %postun
 
 %changelog
+* Mon Jan 07 2019 Thierry <Parmentelat> - transforward-0.1-12
+- tweaks for building against f27
+- will no longer build against f29 though, because since kernel 4.19, the jprobe api has gone entirely
+- # https://github.com/torvalds/linux/commit/4de58696de076d9bd2745d1cbe0930635c3f5ac9
+
 * Sun Jul 16 2017 Thierry Parmentelat <thierry.parmentelat@sophia.inria.fr> - transforward-0.1-11
 - no glock.h in kernel 4.9
 
