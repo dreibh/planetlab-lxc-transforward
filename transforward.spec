@@ -1,6 +1,6 @@
 %define name transforward
 %define version 0.1
-%define taglevel 7
+%define taglevel 12
 
 ### legacy from locally-built kernels, used to define these
 # kernel_release : 1.fc16  (24 is then the planetlab taglevel)
@@ -10,16 +10,18 @@
 # when no custom kernel is being built, kernel_version is defined but empty
 %define _with_planetlab_kernel %{?kernel_version:1}%{!?kernel_version:0}
 %if ! %{_with_planetlab_kernel}
-# compute this with "rpm -q --qf .. kernel-devel" when with the stock kernel
+
+# compute these with "rpm -q --qf .. kernel-devel" when with the stock kernel
 # this line below
-#%define module_release %( rpm -q --qf "%{version}" kernel-headers )
+#%define module_release %( rpm -q --qf "%{version}" kernel-devel )
 # causes recursive macro definition no matter how much you quote
+
 %define percent %
 %define braop \{
 %define bracl \}
-%define kernel_version %( rpm -q --qf %{percent}%{braop}version%{bracl} kernel-headers )
-%define kernel_release %( rpm -q --qf %{percent}%{braop}release%{bracl} kernel-headers )
-%define kernel_arch %( rpm -q --qf %{percent}%{braop}arch%{bracl} kernel-headers )
+%define kernel_version %( rpm -q --qf %{percent}%{braop}version%{bracl} kernel-devel )
+%define kernel_release %( rpm -q --qf %{percent}%{braop}release%{bracl} kernel-devel )
+%define kernel_arch %( rpm -q --qf %{percent}%{braop}arch%{bracl} kernel-devel )
 %endif
 
 # this is getting really a lot of stuff, could be made simpler probably
@@ -48,7 +50,7 @@ Requires: kernel = %{kernel_version}-%{kernel_release}
 %description
 Kernel module that transparently forwards ports between containers
 
-%prep 
+%prep
 %setup -q
 
 %build
@@ -76,6 +78,23 @@ rm -rf $RPM_BUILD_ROOT
 %postun
 
 %changelog
+* Mon Jan 07 2019 Thierry <Parmentelat> - transforward-0.1-12
+- tweaks for building against f27
+- will no longer build against f29 though, because since kernel 4.19, the jprobe api has gone entirely
+- # https://github.com/torvalds/linux/commit/4de58696de076d9bd2745d1cbe0930635c3f5ac9
+
+* Sun Jul 16 2017 Thierry Parmentelat <thierry.parmentelat@sophia.inria.fr> - transforward-0.1-11
+- no glock.h in kernel 4.9
+
+* Sun Jul 10 2016 Thierry Parmentelat <thierry.parmentelat@sophia.inria.fr> - transforward-0.1-10
+- fix to compile against linux 4.6 under f24
+
+* Fri Apr 03 2015 Thierry Parmentelat <thierry.parmentelat@sophia.inria.fr> - transforward-0.1-9
+- only cleaned up the systemd unit file to remove ControlGroup:
+
+* Wed Feb 18 2015 Thierry Parmentelat <thierry.parmentelat@sophia.inria.fr> - transforward-0.1-8
+- add a requirement to the right kernel rpm
+
 * Wed Jul 16 2014 Thierry Parmentelat <thierry.parmentelat@sophia.inria.fr> - transforward-0.1-7
 - tweak for building against a home-made kernel
 
@@ -92,4 +111,3 @@ rm -rf $RPM_BUILD_ROOT
 * Mon Jul 09 2012 Thierry Parmentelat <thierry.parmentelat@sophia.inria.fr> - transforward-0.1-2
 - load module at boot-time
 - various tweaks, remove debugging statements
-

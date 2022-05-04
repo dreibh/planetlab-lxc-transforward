@@ -8,11 +8,12 @@
 #include <linux/reboot.h>
 #include <linux/delay.h>
 #include <linux/proc_fs.h>
+#include <linux/sched.h>
 #include <asm/uaccess.h>
 #include <linux/sysrq.h>
 #include <linux/timer.h>
 #include <linux/time.h>
-#include <linux/lglock.h>
+/*#include <linux/lglock.h>*/
 #include <linux/init.h>
 #include <linux/idr.h>
 #include <linux/namei.h>
@@ -108,7 +109,11 @@ static int init_probes(void)
         return ret;
 }
 
-int procfile_write(struct file *file, const char *buffer, unsigned long count, void *data) {		
+/*  as per http://www.tldp.org/LDP/lkmpg/2.4/html/c577.htm
+    the declaration of write in the file_operations struct reads:
+    ssize_t (*write) (struct file *, const char *, size_t, loff_t *);
+*/
+ssize_t procfile_write(struct file *file, const char *buffer, size_t count, loff_t *data) {		
 	if (!once_only) {
 		once_only=1;
 		if (init_probes()==-1)

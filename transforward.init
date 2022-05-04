@@ -5,4 +5,3 @@ if [ ! -f /proc/transforward ]; then
 else
 	echo 1 > /proc/transforward
 fi
-
